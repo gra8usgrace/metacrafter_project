@@ -1,12 +1,11 @@
 
-const hre = require("hardhat");
-
+import hre from "hardhat"
 async function main() {
 
     const Erc20 = await hre.ethers.getContractFactory("ERC20");
     const erc20 = await Erc20.deploy();
 
-    await erc20.waitForDeployment(1);
+    await erc20.waitForDeployment();
 
     console.log(
         `Token deployed to  ${erc20.target}`
