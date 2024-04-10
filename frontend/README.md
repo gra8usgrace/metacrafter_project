@@ -66,6 +66,3 @@ The application provides the following functionalities to interact with the Meta
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
----
-
-Feel free to customize the README further based on your specific project details and requirements. Let me know if you need any further assistance!
