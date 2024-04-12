@@ -1,23 +1,21 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract ERC20 {
-    string public name = "Gracious Degen";
-    string public symbol ="GDTK" ;
-    uint256 public decimals = 1_000_000_000;
-    uint256 public totalSupply;
-    mapping(address => uint256) public balanceOf;
-    mapping(address => mapping(address => uint256)) public allowance;
+import "./IERC20.sol";
+
+contract ERC20 is IERC20 {
+    string public override name = "Gracious Degen";
+    string public override symbol ="GDTK" ;
+    uint256 public override decimals = 1_000_000_000;
+    uint256 public override totalSupply;
+    mapping(address => uint256) public override balanceOf;
+    mapping(address => mapping(address => uint256)) public override allowance;
     address private owner;
 
     error InsufficientBalance();
 
-    event Transfer(address indexed from, address indexed to, uint256 value);
-    event Approval(address indexed owner, address indexed spender, uint256 value);
 
-    constructor(
-        address _owner
-    ) {
+    constructor(address _owner) {
         owner = _owner;
     }
 
@@ -28,7 +26,7 @@ contract ERC20 {
         return true;
     }
 
-    function transfer(address _to, uint256 _value) public returns (bool) {
+    function transfer(address _to, uint256 _value) public override returns (bool) {
         require(_to != address(0), "ERC20: Transfer to the zero address");
         if (_value > balanceOf[msg.sender]){
             revert InsufficientBalance();
@@ -39,7 +37,6 @@ contract ERC20 {
 
         return true;
     }
-    
 
     function mint(uint256 _amount) public returns(bool){
         require(msg.sender == owner, "Only owner can mint" );
@@ -49,13 +46,13 @@ contract ERC20 {
         return true;
     }
 
-    function approve(address _spender, uint256 _value) external returns (bool) {
+    function approve(address _spender, uint256 _value) public override returns (bool) {
         allowance[msg.sender][_spender] = _value;
         emit Approval(msg.sender, _spender, _value);
         return true;
     }
 
-    function transferFrom(address _from, address _to, uint256 _value) external returns (bool) {
+    function transferFrom(address _from, address _to, uint256 _value) public override returns (bool) {
         require(_from != address(0), "Invalid sender address");
         require(_to != address(0), "Invalid recipient address");
         require(balanceOf[_from] >= _value, "Insufficient balance");
