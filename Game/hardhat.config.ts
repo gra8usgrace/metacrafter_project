@@ -15,7 +15,7 @@ const config: HardhatUserConfig = {
     customChains: [
       {
         network: "snowtrace",
-        chainId: 43113,
+        chainId: 43113, 
         urls: {
           apiURL: "https://api.routescan.io/v2/network/testnet/evm/43113/etherscan",
           browserURL: "https://testnet.snowtrace.io"

@@ -1,5 +1,4 @@
-module.exports = {
-	FXRootContractAbi: [
+export const FXRootContractAbi: any[] = [
 		{
 			inputs: [
 				{
@@ -223,5 +222,5 @@ module.exports = {
 			stateMutability: 'nonpayable',
 			type: 'function',
 		},
-	],
-}
+	]
+

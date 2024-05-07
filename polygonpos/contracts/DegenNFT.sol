@@ -7,21 +7,21 @@ contract DegenNFT is ERC721A{
 
     error DegenNFT__MaximumSupplyReached();
 
-    uint256 public MAX_SUPPLY = 1000;
+    uint256 public MAX_SUPPLY = 5;
     constructor() ERC721A("DegenNFT", "DGF") {}
 
-    function mint(uint256 quantity) external payable {
+    function mint(address to , uint256 quantity) external payable {
         if (totalSupply() + quantity > MAX_SUPPLY) {
             revert DegenNFT__MaximumSupplyReached();
         }
-        _mint(msg.sender, quantity);
+        _mint(to, quantity);
     }
 
     function _baseURI() internal pure override returns (string memory){
-        return "https://gateway.pinata.cloud/ipfs/QmbhzuWuyYicC9Qj7xS2Q49QY2tkhiBXydYV3u1NtTgHet/";
+        return "https://scarlet-just-mosquito-515.mypinata.cloud/ipfs/QmTYdcaxwFjB3gPnP6bC5pCAeofzNMCzFDnELWpKWfg87b/";
     }
     function prompt() external pure returns (string memory) {
         return
-            "Hunter lost in African forest finds mystical village, bridges two communities through wisdom and unity.";
+            "Black and white street photography of a rainy night in New York, reflections on wet pavement";
     }
 }
