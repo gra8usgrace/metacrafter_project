@@ -44,7 +44,7 @@ The script will approve the NFTs for transfer, deposit them to the bridge, and i
 To test the balance of your NFTs on the Polygon Mumbai network, run the following command:
 
 ```bash
-npx hardhat run scripts/balance.ts --network mumbai
+npx hardhat run scripts/getBalance.ts --network mumbai
 ```
 
 The script will retrieve and display the current balance of your NFTs on Polygon Mumbai.
