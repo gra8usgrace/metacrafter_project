@@ -13,7 +13,7 @@ async function main(){
   const fxRoot = await ethers.getContractAt(FXRootContractAbi, fxRootAddress);
 
   // Approve NFTs for transfer
-  const quantity: number[] = [0, 1, 2, 3, 4]; // Number of NFTs to transfer
+  const quantity: number[] = [0, 1, 2, 3, 4]; 
   const approveTx = await DegenNFT.setApprovalForAll(fxRootAddress, true);
   await approveTx.wait();
 

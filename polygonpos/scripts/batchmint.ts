@@ -1,19 +1,21 @@
-import hre from "hardhat";
-// import { FXRootContractAbi } from "./FXRootContractAbi";
+import { ethers } from "hardhat";
 import { abi } from "../artifacts/contracts/DegenNFT.sol/DegenNFT.json";
-import {contractaddress, user} from "./constants.json"
-
-
+import { contractaddress, user } from "./constants.json";
+import hre from "hardhat";
+import { DegenNFT  as d}  from "../typechain-types";
 async function main() {
-  const DegenNFT = await hre.ethers.getContractAt(abi, contractaddress);
+
+  const [signerOne ] = await hre.ethers.getSigners();
+  const addressOne = await signerOne.getAddress()
+
+  const DegenNFT: d = await hre.ethers.getContractAt("DegenNFT",contractaddress, signerOne ) 
 
   const quantity = 5;
    
-  const mintToken = await DegenNFT.mint(user, quantity);
+  const mintToken = await DegenNFT.safeMint(user, quantity);
   const result = await mintToken.wait();
-  console.log("Result :", result)
-
-  console.log("Successfully minted", quantity);
+  console.log("Transaction Hash:", result);
+  console.log("minted", await DegenNFT.balanceOf(user));
 }
 
 main()
@@ -22,4 +24,3 @@ main()
     console.error(error);
     process.exit(1);
   });
-
