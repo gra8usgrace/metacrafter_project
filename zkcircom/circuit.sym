@@ -1,0 +1,13 @@
+1,1,3,main.out
+2,2,3,main.a
+3,3,3,main.b
+4,4,0,main.AndGate2.out
+5,-1,0,main.AndGate2.a
+6,-1,0,main.AndGate2.b
+7,-1,1,main.NotGate.out
+8,-1,1,main.NotGate.b
+9,-1,2,main.OrGate.out
+10,-1,2,main.OrGate.x
+11,-1,2,main.OrGate.y
+12,-1,2,main.OrGate.sym1
+13,-1,2,main.OrGate.sym2
