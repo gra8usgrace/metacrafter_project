@@ -19,14 +19,10 @@ Make sure you have Node.js and npm installed on your machine.
 1. Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/gra8usgrace/metacrafter_project
+git clone https://github.com/gra8usgrace/metacrafter_project/tree/main/Organisation_Vesting/frontend
 ```
 
-2. Navigate to the project directory:
 
-```bash
-cd frontend
-```
 
 3. Install dependencies:
 
@@ -39,22 +35,59 @@ npm install
 1. Start the development server:
 
 ```bash
-npm start
+npm dev
 ```
 
 2. Open your browser and navigate to `http://localhost:5173` to view the application.
 
-### Smart Contract Functions
+# TokenVesting Smart Contract
 
-The application provides the following functionalities to interact with the Metacrafters ERC20 Token smart contract:
+This Solidity smart contract implements a token vesting mechanism to distribute tokens to beneficiaries over a specified vesting duration. It ensures that tokens are distributed securely according to the specified terms.
 
-- **Connect Wallet:** Users can connect their wallets to the application to perform token-related actions.
+## Features
 
-- **Token Details:** Users can view the name, symbol, decimal, and balance of the ERC20 token.
+- **Organization Management**: Allows adding organizations with their token amounts.
+- **Beneficiary Management**: Enables adding beneficiaries with their vesting details.
+- **Whitelist Management**: Permits adding addresses to a whitelist for token claiming.
+- **Token Claiming**: Beneficiaries can claim their tokens after the vesting period ends.
+- **Error Handling**: Provides error handling for unauthorized access, insufficient token amounts, and unauthorized token claiming attempts.
 
-- **Mint Token:** Users can mint new tokens by specifying the amount.
+## Contract Structure
 
-- **Transfer Token:** Users can transfer tokens to another address by providing the recipient's address and the token amount.
+The contract consists of the following key components:
+
+- **Organization Struct**: Contains information about organizations, including their addresses, names, and token amounts.
+- **Beneficiary Struct**: Stores details about beneficiaries, such as their addresses, positions, vesting durations, start times, token amounts, and claimed token amounts.
+- **totalSupply**: Tracks the total token supply.
+- **Mappings**: Utilizes mappings to store beneficiary information, whitelist status, organization details, and claimed token balances.
+- **Events**: Emits events for stakeholder creation and token claiming.
+- **Modifiers**: Defines a modifier for authorization checks.
+
+## Functions
+
+- `addOrganization`: Allows adding organizations with their token amounts.
+- `addBeneficiary`: Permits adding beneficiaries with their vesting details. Requires authorization.
+- `addToWhitelist`: Adds addresses to the whitelist for token claiming. Requires authorization.
+- `claimTokens`: Allows beneficiaries to claim their tokens after the vesting period ends.
+- `getClaimedTokens`: Retrieves the claimed token balance of a beneficiary.
+- `getBeneficiaryInfo`: Retrieves information about a specific beneficiary.
+
+## Usage
+
+1. Deploy the contract on the Ethereum blockchain.
+2. Add organizations and their corresponding token amounts using the `addOrganization` function.
+3. Add beneficiaries with their vesting details using the `addBeneficiary` function, ensuring that the organization is authorized.
+4. Add beneficiary addresses to the whitelist using the `addToWhitelist` function, ensuring that the organization is authorized.
+5. After the vesting period ends, beneficiaries can claim their tokens using the `claimTokens` function if their address is whitelisted and the vesting period is over.
+6. Check the claimed token balance of a beneficiary using the `getClaimedTokens` function.
+7. Retrieve information about a beneficiary using the `getBeneficiaryInfo` function.
+
+Contract address Deployed on AMOY
+
+```sh
+0x52C4139094ACCFE877F36CB60eCc94b1764631A2
+```
+
 
 ### Technologies Used
 
