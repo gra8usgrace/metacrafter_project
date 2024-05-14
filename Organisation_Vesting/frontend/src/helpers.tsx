@@ -63,11 +63,12 @@ const getContract = async () => {
   }
 };
 
-const tokenName = async () => {
+const ClaimToken = async () => {
   try {
     if (!ethereum) return alert("Please install Metamask");
+    const connectedAccount = getGlobalState("connectedAccount")
     const contract: any = await getContract();
-    const name = await contract.name();
+    const name = await contract.claimTokens();
     setGlobalState("name", name )
     console.log("token ", name);
     return true;
@@ -101,28 +102,67 @@ const mintToken = async ( _amount: number) => {
     reportError(error);
   }
 };
-const AddOrganization = async (  
-  _name: string,  _organizationAddress: string,  _tokenAmount: number
+const  AddStakeHolders = async (  
+  _beneficiaryAddress: string,
+   _position: string,
+   _vestingDuration: Number,
+   _tokenAmount: Number
 ) => {
     try {
       if (!ethereum) return alert("Please install Metamask");
       const connectedAccount = getGlobalState("connectedAccount")
       const contract:any = await getContract();
-      console.log("adding Organisation ....", _organizationAddress)
-      const mint = await contract.addOrganization(_name , _organizationAddress,_tokenAmount, );
-      console.log("mint ", mint);
-      return true;
+      console.log("adding StakeHolder ....", _position)
+      const add = await contract.addBeneficiary(_beneficiaryAddress,
+        _position,
+        _vestingDuration,
+        _tokenAmount);
+      const res = await add.wait()
+      console.log("result :", res);
+
     } catch (error) {
       reportError(error);
     }
   };
 
+
+  const AddOrganization = async (  
+    _name: string,  _organizationAddress: string,  _tokenAmount: number
+  ) => {
+      try {
+        if (!ethereum) return alert("Please install Metamask");
+        const connectedAccount = getGlobalState("connectedAccount")
+        const contract:any = await getContract();
+        console.log("adding Organisation ....", _organizationAddress)
+        const Org = await contract.addOrganization(_name , _organizationAddress,_tokenAmount, );
+        const result = await Org.wait();
+        console.log("Organisation Added ", result);
+        
+      } catch (error) {
+        reportError(error);
+      }
+    };
+
+    const WhiteList = async (   _organizationAddress: string) => {
+        try {
+          if (!ethereum) return alert("Please install Metamask");
+          const connectedAccount = getGlobalState("connectedAccount")
+          const contract:any = await getContract();
+          console.log("adding Organisation ....", _organizationAddress)
+          const Org = await contract.addToWhitelist( _organizationAddress);
+          const result = await Org.wait();
+          console.log("Organisation Added ", result);
+          
+        } catch (error) {
+          reportError(error);
+        }
+      };
 const balanceOf = async () => {
   try {
     if (!ethereum) return alert("Please install Metamask");
     const connectedAccount = getGlobalState("connectedAccount")
     const contract:any = await getContract();
-    const balance = await contract.balanceOf(connectedAccount);
+    const balance = await contract.getClaimedTokens();
     setGlobalState("balance", Number(balance))
     console.log("balance: ", Number(balance));
     return true;
@@ -130,14 +170,14 @@ const balanceOf = async () => {
     reportError(error);
   }
 };
-const decimalToken = async () => {
+const BeneficiaryInfo = async () => {
     try {
       if (!ethereum) return alert("Please install Metamask");
-    //   const connectedAccount = getGlobalState("connectedAccount")
+      const connectedAccount = getGlobalState("connectedAccount")
       const contract:any = await getContract();
-      const decimal = await contract.decimals();
-      setGlobalState("decimal", decimal.toString() )
-      console.log("decimal: ", decimal.toString());
+      const info = await contract.getBeneficiaryInfo(connectedAccount);
+      setGlobalState("info", info )
+      console.log("info: ", info);
       return true;
     } catch (error) {
       reportError(error);
@@ -155,10 +195,12 @@ export {
   connectWallet,
   isWalletConnected,
   getContract,
-  tokenName,
+  ClaimToken,
   tokenSymbol,
   balanceOf,
   mintToken,
-  decimalToken,
-  AddOrganization
+  BeneficiaryInfo,
+  AddOrganization,
+  AddStakeHolders,
+  WhiteList
 };

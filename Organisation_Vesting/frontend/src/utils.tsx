@@ -8,7 +8,7 @@ const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState({
     balance: 0,
     symbol: '',
     name: '',
-    decimal: ''
+    info: null
     
 })
 
