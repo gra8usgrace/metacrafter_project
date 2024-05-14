@@ -6,16 +6,15 @@ import { DegenNFT  as d}  from "../typechain-types";
 async function main() {
 
   const [signerOne ] = await hre.ethers.getSigners();
-  const addressOne = await signerOne.getAddress()
 
   const DegenNFT: d = await hre.ethers.getContractAt("DegenNFT",contractaddress, signerOne ) 
 
-  const quantity = 5;
+  const quantity = 4;
    
   const mintToken = await DegenNFT.safeMint(user, quantity);
   const result = await mintToken.wait();
   console.log("Transaction Hash:", result);
-  console.log("minted", await DegenNFT.balanceOf(user));
+  console.log("✨ Minted  ✅ ", await DegenNFT.balanceOf(user));
 }
 
 main()

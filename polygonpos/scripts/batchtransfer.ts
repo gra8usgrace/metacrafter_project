@@ -3,6 +3,7 @@ import hre from "hardhat";
 import { FXRootContractAbi } from "./FXRootContractAbi";
 import { abi } from "../artifacts/contracts/DegenNFT.sol/DegenNFT.json";
 import {contractaddress} from "./constants.json";
+
 async function main(){
   const user = "0x4131811b8a4237712905650985A7474F8f92b18b"
   const DegenNFT = await hre.ethers.getContractAt(abi, contractaddress);
@@ -25,10 +26,11 @@ async function main(){
       quantity[i],
       '0x6566' 
     );
-    await depositTx.wait();
+   const approved =  await depositTx.wait();
+   console.log("approved ✨:✨✨✨✨✨:  ", approved)
   }
 
-  console.log("NFTs approved and batch deposited to Polygon Mumbai.");
+  console.log("✨ Approved and Deposited  ✅  ");
 }
 
 main()
