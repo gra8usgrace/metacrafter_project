@@ -10,7 +10,7 @@ async function main(){
 
 
   // Get FXRoot contract instance
-  const fxRootAddress = "0xF9bc4a80464E48369303196645e876c8C7D972de"; // FxRoot contract address on Mumbai
+  const fxRootAddress = "0xF9bc4a80464E48369303196645e876c8C7D972de"; 
   const fxRoot = await ethers.getContractAt(FXRootContractAbi, fxRootAddress);
 
   // Approve NFTs for transfer
